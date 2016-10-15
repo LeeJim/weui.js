@@ -1,7 +1,5 @@
 (function ($) {
 
-    let $dialog = null;
-
     /**
      *  weui dialog
      * @param {Object} [options]
@@ -37,20 +35,20 @@
                     </div>
                 </div>
             </div>`;
-        $dialog = $(html);
+        var $dialog = $(html);
         $('body').append($dialog);
         $dialog.on('click', '.weui-dialog__btn', function () {
             const button = options.buttons[$(this).index()];
             const cb = button.onClick || $.noop;
             cb.call();
-            $.weui.closeDialog();
+            $.weui.closeDialog($dialog);
         });
     };
 
     /**
      * close dialog
      */
-    $.weui.closeDialog = function () {
+    $.weui.closeDialog = function ($dialog) {
         if ($dialog) {
             $dialog.off('click');
             // zepto 核心不包含动画相关的方法
